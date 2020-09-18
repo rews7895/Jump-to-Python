@@ -1,2 +1,4 @@
 cd
 *.txt
+__pycache__
+*.pyc
