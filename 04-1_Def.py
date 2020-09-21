@@ -66,7 +66,7 @@ print(result2)
 
 # return은 함수를 빠져나가고 싶을 때도 사용가능
 
-# 매개ㅐ변수에 초깃값 미리 설정
+# 매개변수에 초깃값 미리 설정
 def say_myself(name, old, man=True):
     print(f"나의 이름은 {name}입니다.")
     print(f"나이는 {old}살입니다.")

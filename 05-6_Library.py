@@ -139,7 +139,7 @@ print(data)
 
 # webbrowser : 자신의 시스템에서 사용하는 기본 웹 브라우저를 자동으로 실행하는 모듈
 import webbrowser
-webbrowser.open("https://google.com")
+# webbrowser.open("https://google.com")
 
 # threading
 import threading
@@ -161,8 +161,3 @@ for t in threads:
     t.join()
 
 print("End")
-
-
-
-
-
