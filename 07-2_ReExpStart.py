@@ -5,7 +5,6 @@
 [] 문자클래스 
 [a-zA-Z] : 알파벳 모두
 [0-9] : 숫자
-^ : 반대 ex) [^0-9] : 숫자가 아닌 문자만 매치
 \d : 숫자와 매치, [0-9]와 동일한 표현식이다.
 \D : 숫자가 아닌 것과 매치, [^0-9]와 동일한 표현식.
 \s : whitespace 문자(space, tab)와 매치, [ \t\n\r\f\v]와 동일한 표현식이다. 맨 앞은 빈간은 공백 문자를 의미한다.
@@ -158,8 +157,9 @@ you need python
 python three"""
 
 print(p.findall(data))
-
+# 사용 후
 p = re.compile("^python\s\w+", re.MULTILINE)
+# MULTILINE 옵션으로 인해 ^메타 문자가 문자열 전체가 아닌 각 줄의 처음이라는 의미를 갖게 됨.
 
 data = """python one
 life is too short
@@ -168,3 +168,26 @@ you need python
 python three"""
 
 print(p.findall(data))
+
+# VERBOSE : verbose 모드를 사용한다.(정규식을 보기 편하게 만들 수도 있고 주석 등을 사용할 수도 있다.)
+charref = re.compile(r'&[#](0[0-7]+|[0-9]+|x[0-9a-fA-F]+);')
+# 사용 후
+charref = re.compile(r"""
+&[#]                    # Start of a numeric entity reference
+(
+    0[0-7]+             # Octal form
+    |[0-9]+             # Decimal form
+    |x[0-9a-fA-F]+      # Hexadecimal form
+)
+;                       # Trailing semicolon
+""", re.VERBOSE)    # VERBOSE 옵션을 사용하면 문자열에 사용된 whitespace는 컴파일할 때 제거된다(단[]안에 사용한 whitespace는 제외). 그리고 줄 단위로 #기호를 사용하여 주석문을 작성할 수 있다.
+
+# 백슬래시 문제
+"""
+\section -> \\section : \문자가 문자열 자체임을 알려주기 위해 \\와 같이 두 번 사용하여 이스케이프 처리를 해야한다. 
+"""
+p = re.compile('\\section')
+# \\는 \\\\
+# Raw String
+p = re.compile(r'\\section')
+# 위와 같이 정규식 문자열 앞에 r문자를 삽입하면 이 정규식은 Raw String규칙에 의하여 백슬래시 2개 대신 1개만 써도 2개를 쓴 것과 동일한 의미를 갖게 된다.
